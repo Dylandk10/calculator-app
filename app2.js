@@ -15,10 +15,10 @@ var decVal = false;
 //Check for decimal return true if data has it...
 function checkDec(val) {
   if(val == "." && data[0].includes(".") && dec === 0) {
-    return decVal = true;
+     decVal = true;
   }
   if(val == "." && data[1].includes(".") && dec === 1) {
-    return decVal = true;
+     decVal = true;
   }
 }
 
@@ -32,7 +32,7 @@ numBtn.forEach((el) => {
     if(signOp == "" && el.value != 0) {
       //check decimal
       checkDec(el.value);
-      if(!decVal) {
+      if(!decVal || decVal == true && el.value != ".") {
         data[0] += el.value;
         screen.innerHTML = data[0];
         console.log(data[0]);
@@ -40,7 +40,7 @@ numBtn.forEach((el) => {
     }  else {
       //check decimal
       checkDec(el.value);
-      if(!decVal) {
+      if(!decVal || decVal == true && el.value != ".") {
         data[1] += el.value;
         screen.innerHTML = data[1];
         console.log(data[1]);
@@ -91,6 +91,7 @@ document.getElementById("equal").addEventListener("click", function(){
     //Console.log final expression
     console.log(`${data[0]} ${signOp} ${data[1]} = ${expression}`);
     console.log(`Answer: ${expression}`);
+    decVal = true;
 });
 
 //clear data for clear button...
@@ -98,6 +99,7 @@ document.getElementById("clear").addEventListener("click", function() {
   data[0] = "";
   data[1] = "";
   signOp = "";
-  dec = false
+  decVal = false
+  dec = 0;
   screen.innerHTML = "0000"
 });
