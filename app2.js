@@ -11,6 +11,7 @@ var data = ["", ""];
 var signOp = "";
 var dec = 0;
 var decVal = false;
+var signVal = false;
 
 //Check for decimal return true if data has it...
 function checkDec(val) {
@@ -57,10 +58,17 @@ opBtn.forEach((el) => {
     dec === 0 ? dec = 1 : dec = 0;
     //reverse decVal
     decVal = false;
-    console.log(decVal);
-    console.log(`dec : ${dec}`)
-    if(data[0] > 0) {
-      signOp = el.value;
+    //check signVal
+    if(!signVal) {
+      console.log(decVal);
+      console.log(`dec : ${dec}`);
+      //call signVal
+      signVal = true;
+      console.log(`signVal : ${signVal}`);
+      //last check is data[0] is greater then 0;
+      if(data[0] > 0) {
+        signOp = el.value;
+      }
     }
   });
 });
@@ -68,6 +76,8 @@ opBtn.forEach((el) => {
 //figure out expression and return answer...
 document.getElementById("equal").addEventListener("click", function(){
   console.log("clicked");
+  //return signval to false
+  signVal = false;
   var expression;
   //convert strings to float points
   data[0] = parseFloat(data[0]);
