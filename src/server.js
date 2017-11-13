@@ -20,18 +20,9 @@ app.get('/', (req, res) => {
 //get method to recieve data
 app.get('/getdata', (req, res) => {
   console.log(req.query.amount);
-  //make constructor for data
-  var data = new WeekData({
-    data: req.query.amount
-  });
-  //check data sith check data.js
+  //check data with check data.js
   Check(req.query.amount);
-  // data.save().then((user) => {
-  //   console.log(user);
-  //   res.render('index.hbs');
-  // }).catch((e) => {
-  //   res.status(400).send(e);
-  // });
+  res.render('index.hbs');
 
 });
 
