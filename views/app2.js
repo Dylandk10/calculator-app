@@ -97,10 +97,14 @@ document.getElementById("equal").addEventListener("click", function(){
     case "/":
       expression = data[0] / data[1];
     }
+    //print to screen
     screen.innerHTML = expression;
+    //make input value epression number
+    document.getElementById("input1").value = expression;
     //Console.log final expression
     console.log(`${data[0]} ${signOp} ${data[1]} = ${expression}`);
     console.log(`Answer: ${expression}`);
+    //return davVal to true
     decVal = true;
 });
 

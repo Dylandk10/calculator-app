@@ -7,4 +7,4 @@ node takes daily budgets and gives weekly report.
 
 Use console to see total expression.
 
-created by "__--<K3LLY>--__"
+created by "__--K3LLY--__"
