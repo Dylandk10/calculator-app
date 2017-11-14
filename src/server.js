@@ -5,6 +5,8 @@ const mongoose = require('./mongoose/mongoose.js');
 var {WeekData} = require('./mongoose/models/weekly-budget.js');
 //require search function
 var {Check} = require('./mongoose/check-data.js');
+//require get week data to return week data
+var {GetWeek} = require('./mongoose/get-week-data.js');
 const port = 3000;
 var app = express();
 
@@ -24,6 +26,10 @@ app.get('/getdata', (req, res) => {
   Check(req.query.amount);
   res.render('index.hbs');
 
+});
+
+app.get('/getWeekData', (req, res) => {
+  GetWeek();
 });
 
 app.listen(port, () => {

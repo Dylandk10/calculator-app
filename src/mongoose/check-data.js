@@ -2,7 +2,11 @@
 CHECK FOR DATA ARRAY LENGTH IF LONGER THEN 7 CLEAR DATA ARRAY
 */
 const {MongoClient, ObjectID} = require('mongodb');
+//require weekly data
 var {WeekData} = require('./models/weekly-budget.js');
+//require daily data
+var {DailyData} = require('./models/daily-data.js');
+
  var Check = (newData) => { MongoClient.connect('mongodb://localhost:27017/project2', (err, db) => {
      if(err) {
        return console.log('Unable to connect to mongoDB Servers...')
@@ -12,8 +16,8 @@ var {WeekData} = require('./models/weekly-budget.js');
        //search for id
        console.log('Searching data...');
        console.log(doc);
-       //if not database
-       if(!db) {
+       //if null
+       if(doc == null) {
          //make new database
          var Data = new WeekData({
            data: doc.data
@@ -31,13 +35,19 @@ var {WeekData} = require('./models/weekly-budget.js');
            console.log(`Deleting data ${res}`);
 
            return false;
-         });
+         }).catch((err) => {
+           return console.log(`Error: ${err}`);
+         })
          //else return data back to function;
         } else {
-         console.log(doc.data);
-         db.collection('weekdatas').update({_id: '5a09d78854c84e0337683eb9'}, {$push: {data: newData}}).then((doc) => {
+        //call constructor for mongoose
+        var Hold = new DailyData({
+          data: newData
+        });
+         console.log(Hold.data);
+         //push new constructor to weekly data
+         db.collection('weekdatas').update({_id: '5a09d78854c84e0337683eb9'}, {$push: {data: Hold.data}}).then((doc) => {
            console.log('Data saved!!!');
-           console.log(doc);
          }).catch((e) => {
            console.log(`Data not saved!!! ${e}`);
          });
