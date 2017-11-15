@@ -11,23 +11,11 @@ var {DailyData} = require('./models/daily-data.js');
      if(err) {
        return console.log('Unable to connect to mongoDB Servers...')
      }
-     var id = '5a09d78854c84e0337683eb9';
-     db.collection('weekdatas').findOne({_id: new ObjectID('5a09d78854c84e0337683eb9')}).then((doc) => {
+     var id = '5a0b5af193dc3402a92d6545';
+     db.collection('weekdatas').findOne({_id: new ObjectID('5a0b5af193dc3402a92d6545')}).then((doc) => {
        //search for id
        console.log('Searching data...');
        console.log(doc);
-       //if null
-       if(doc == null) {
-         //make new database
-         var Data = new WeekData({
-           data: doc.data
-         });
-         Data.save().then(() => {
-           console.log("Saving data to database");
-         }).catch((e) => {
-           console.log(`Unable to make new query ${e}`);
-         });
-       }
        //if data is greater then 7 delete all
        if(doc.data.length > 7) {
          //delete all data
@@ -44,9 +32,10 @@ var {DailyData} = require('./models/daily-data.js');
         var Hold = new DailyData({
           data: newData
         });
+        Hold.save();
          console.log(Hold.data);
          //push new constructor to weekly data
-         db.collection('weekdatas').update({_id: '5a09d78854c84e0337683eb9'}, {$push: {data: Hold.data}}).then((doc) => {
+         db.collection('weekdatas').update({_id: '5a0b5af193dc3402a92d6545'}, {$push: {data: Hold.data}}, {upsert: true}).then((doc) => {
            console.log('Data saved!!!');
          }).catch((e) => {
            console.log(`Data not saved!!! ${e}`);

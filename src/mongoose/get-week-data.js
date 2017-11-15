@@ -6,8 +6,8 @@ var GetWeek = () => {
       return console.log('Unable to connect to servers...');
     }
 
-    var id = '5a09d78854c84e0337683eb9';
-    db.collection('weekdatas').findOne({_id: new ObjectID(id)}).then((doc) => {
+    var id = '5a0b5af193dc3402a92d6545';
+    db.collection('weekdatas').findOne({_id: '5a0b5af193dc3402a92d6545'}).then((doc) => {
       console.log("Searching threw data...");
       var hold = doc.data;
       var count = 0;
@@ -15,9 +15,20 @@ var GetWeek = () => {
         count += el;
         console.log(`Count: ${count}`);
       });
+      //return the final of budget spent!!
+      console.log(`Final Count: ${count}`);
+      return count;
     }).catch((err) => {
       return console.log(`Error: ${err}`);
-    })
+    });
+
+    //second idea for ARRAY
+    // db.collection('weekdatas').find({_id: '5a0b5af193dc3402a92d6545'}).forEach((el) => {
+    //   var count = 0;
+    //   var hold;
+    //   hold = el.data += count;
+    //   console.log(hold);
+    // });
   });
 }
 
