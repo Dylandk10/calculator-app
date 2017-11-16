@@ -5,8 +5,12 @@ const mongoose = require('./mongoose/mongoose.js');
 var {WeekData} = require('./mongoose/models/weekly-budget.js');
 //require search function
 var {Check} = require('./mongoose/check-data.js');
+//require check2 for alt method of checking data
+var {Check2} = require('./mongoose/check-data-alt.js');
 //require get week data to return week data
 var {GetWeek} = require('./mongoose/get-week-data.js');
+//require change data manually fuinction
+var {ChangeDataManually} = require('./mongoose/change-manually.js');
 const port = 3000;
 var app = express();
 
@@ -26,8 +30,8 @@ app.get('/getdata', (req, res) => {
   var checkCheck = true;
   //when true check threw other data!
   if(checkCheck) {
-  //check data with check data.js
-  Check(req.query.amount);
+  //check data with check-data-alt.js
+  Check2(req.query.amount);
   res.render('index.hbs');
   }
   //if false make new enter for data...
@@ -47,7 +51,13 @@ app.get('/getdata', (req, res) => {
 
 app.get('/getWeekData', (req, res) => {
   GetWeek();
+  res.render('index.hbs');
 });
+
+app.get('/manuallyChangeData', (req, res) => {
+  ChangeDataManually();
+  res.render('index.hbs');
+})
 
 app.listen(port, () => {
   console.log(`Server starting on ${port}...`);

@@ -1,4 +1,6 @@
 const {MongoClient, ObjectID} = require('mongodb');
+//ID for development purposes only
+var {ID} = require('./models/id.js');
 
 var GetWeek = () => {
   MongoClient.connect('mongodb://localhost:27017/project2', (err, db) => {
@@ -6,8 +8,8 @@ var GetWeek = () => {
       return console.log('Unable to connect to servers...');
     }
 
-    var id = '5a0b5af193dc3402a92d6545';
-    db.collection('weekdatas').findOne({_id: '5a0b5af193dc3402a92d6545'}).then((doc) => {
+    var id = ID();
+    db.collection('weekdatas').findOne({_id: new ObjectID(id)}).then((doc) => {
       console.log("Searching threw data...");
       var hold = doc.data;
       var count = 0;
