@@ -55,7 +55,7 @@ app.get('/getWeekData', (req, res) => {
 });
 
 app.get('/manuallyChangeData', (req, res) => {
-  ChangeDataManually();
+  ChangeDataManually(req.query.dayInput, req.query.amountInput);
   res.render('index.hbs');
 })
 
